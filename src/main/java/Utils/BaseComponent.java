@@ -13,8 +13,8 @@ public class BaseComponent {
 	@BeforeClass
 	public void setup() {
 
-		RestAssured.baseURI = "https://keytrcrud.herokuapp.com/";	
-
+		//RestAssured.baseURI = "https://keytrcrud.herokuapp.com/";	
+		RestAssured.baseURI = "https://api.instantwebtools.net";
 	}
 
 
@@ -33,7 +33,21 @@ public class BaseComponent {
 		return result;
 
 	}
+	public static Response doPutRequest(String path, String body, int statusCode) {
 
+		Response result = 
+				given().
+					contentType(ContentType.JSON).
+					body(body).
+				when().
+					put(path).
+				then().
+					statusCode(statusCode).
+					extract().response();
+
+		return result;
+
+	}
 	public static Response doGetRequest(String path, String id, int statusCode) {
 
 		Response result = 
