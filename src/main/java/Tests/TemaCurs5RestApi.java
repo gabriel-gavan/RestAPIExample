@@ -38,6 +38,7 @@ public class TemaCurs5RestApi extends BaseComponent{
 		Response response = doGetRequest("v1/passenger/", id, 200);
 		assertEquals(response.jsonPath().get("airline.name").toString(), "[Tarom]");
 		System.out.println(	"Read passenger with id: " + id );
+		System.out.println(response.asPrettyString());
 	}
 	
 	@Test(priority = 3)
@@ -52,7 +53,22 @@ public class TemaCurs5RestApi extends BaseComponent{
 		assertEquals(response.jsonPath().getString("message"), "Passenger data put successfully completed.");
 		System.out.println(	"Updated passenger with id: " + id);
 	}
-
+	@Test(priority = 4)
+	public void getUpdatedPassenger() {
+		Response response = doGetRequest("v1/passenger/", id, 200);
+		assertEquals(response.jsonPath().get("airline.name").toString(), "[Quatar Airways]");
+		assertEquals(response.jsonPath().get("trips").toString(), "300");
+		assertEquals(response.jsonPath().get("name").toString(), name);
+		
+		System.out.println(	"Read updated passenger with id: " + id );
+		System.out.println(response.asPrettyString());
+	}
+	@Test(priority = 5)
+	public void DeletePassenger() {
+		Response response = doDeleteRequest("v1/passenger/", id, 200);
+		assertEquals(response.jsonPath().getString("message"), "Passenger data deleted successfully.");
+		System.out.println(	"Deleted passenger with id: " + id );
+	}
 	
 }
 
