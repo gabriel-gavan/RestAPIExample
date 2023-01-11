@@ -18,4 +18,13 @@ public class DataBuilder {
 		
 		return bodyBuilder;
 	}
+	public static JSONObject buildToDo() {
+		JSONObject bodyToDO =  new JSONObject();
+		Faker faker = new Faker();
+	
+		bodyToDO.put("title", faker.book().title());
+		bodyToDO.put("body", "Request Body G" );
+		
+		return bodyToDO;
+	}
 }

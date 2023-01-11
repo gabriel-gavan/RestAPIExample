@@ -16,15 +16,41 @@ import org.hamcrest.*;
 public class BaseComponent2 {
 	public static RequestSpecification requestSpec;
 	public static ResponseSpecification responseSpec;
+	public static RequestSpecification requestSpecToDoGet;
+	public static RequestSpecification requestSpecToDoDelete;
 	@BeforeClass
 	public static void createRequestSpecification() {
 		requestSpec = new RequestSpecBuilder().
-					setBaseUri("https://keytrcrud.herokuapp.com/")
-					.setBasePath("api/users/")
+					//setBaseUri("https://keytrcrud.herokuapp.com/")
+					//.setBasePath("api/users/")
+				//setBaseUri("https://fakerestapi.azurewebsites.net/")
+				//.setBasePath("api/v1/Books/")
+				setBaseUri("https://keytodorestapi.herokuapp.com/")
+				.setBasePath("api/save/")
 					.setContentType(ContentType.JSON)
 					.addHeader("accept","application/json")
 					.build();
 	}
+	@BeforeClass
+		public static void createRequestSpecificationTodoGet() {
+			requestSpecToDoGet = new RequestSpecBuilder().
+						
+					setBaseUri("https://keytodorestapi.herokuapp.com/")
+					.setBasePath("api/")
+						.setContentType(ContentType.JSON)
+						.addHeader("accept","application/json")
+						.build();
+	}
+	@BeforeClass
+	public static void createRequestSpecificationTodoDelete() {
+		requestSpecToDoDelete = new RequestSpecBuilder().
+					
+				setBaseUri("https://keytodorestapi.herokuapp.com/")
+				.setBasePath("api/delete")
+					.setContentType(ContentType.JSON)
+					.addHeader("accept","application/json")
+					.build();
+}
 	@BeforeClass
 	public static void createResponseSpecification() {
 		responseSpec = new ResponseSpecBuilder().
@@ -97,6 +123,33 @@ public class BaseComponent2 {
 					get(id).
 				then().
 					spec(responseSpec).
+					extract().response();
+
+		return result;
+	}
+	
+	public static Response doGetAllRequestToDo() {
+
+		Response result1 = 
+				given().
+					spec(requestSpecToDoGet).
+				when().
+					get().
+				then().
+					spec(responseSpec).
+					extract().response();
+
+		return result1;
+	}
+	public static Response doDeleteRequestToDo(String id) {
+
+		Response result = 
+				given().
+				spec(requestSpecToDoDelete).
+				when().
+					delete(id).
+				then().
+				spec(responseSpec).
 					extract().response();
 
 		return result;
