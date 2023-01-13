@@ -35,7 +35,7 @@ public class Tema2Curs6RestApi extends BaseComponent2 {
 		
 		JSONObject body =  new JSONObject();
 		body = DataBuilder.buildToDo();
-		Response response = doPostRequest(body.toJSONString(), HttpStatus.SC_OK);
+		Response response = doPostRequest(body.toJSONString());
 		
 		id = response.jsonPath().getString("id");
 		System.out.println(	"Created To Do with id: " + id +  "  body " + body);

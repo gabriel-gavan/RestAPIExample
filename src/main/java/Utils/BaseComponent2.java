@@ -9,7 +9,8 @@ import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import io.restassured.specification.ResponseSpecification;
-
+import static org.hamcrest.Matchers.anyOf;
+import static org.hamcrest.Matchers.is;
 import static io.restassured.RestAssured.given;
 
 import org.hamcrest.*;
@@ -31,6 +32,7 @@ public class BaseComponent2 {
 					.addHeader("accept","application/json")
 					.build();
 	}
+	
 	@BeforeClass
 		public static void createRequestSpecificationTodoGet() {
 			requestSpecToDoGet = new RequestSpecBuilder().
@@ -53,11 +55,11 @@ public class BaseComponent2 {
 }
 	@BeforeClass
 	public static void createResponseSpecification() {
-		responseSpec = new ResponseSpecBuilder().
-				expectStatusCode(200)
+		responseSpec =  new ResponseSpecBuilder()
+				.expectStatusCode(anyOf(is(200),is(201)))
 				.build();
 	}
-	public static Response doPostRequest(String body, int statusCode) {
+	public static Response doPostRequest(String body) {
 
 		Response result = 
 				given().
@@ -66,7 +68,7 @@ public class BaseComponent2 {
 				when().
 					post().
 				then().
-					statusCode(statusCode).
+					spec(responseSpec).
 					extract().response();
 
 		return result;
