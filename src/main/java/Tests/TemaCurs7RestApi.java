@@ -4,6 +4,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.hamcrest.collection.IsEmptyCollection;
@@ -33,14 +34,11 @@ public class TemaCurs7RestApi extends BaseComponent2 {
 	String eyeColor = jsonpath.getString("eye_color");
 	
 		// one assert
-	assertThat(hairColor,skinColor,anyOf(equalTo("blond"),equalTo("fair")));
-		
-	assertThat( hairColor, equalTo("blond"));
-			
-			
-			//is(oneOf("blond","fair","blue")));
-	
-	//,jsonpath.getString("skin_color"),jsonpath.getString("eye_color")
+    List<String> collection = new ArrayList<>(Arrays.asList(hairColor,
+            skinColor,
+            eyeColor));
+       assertThat(collection, containsInAnyOrder("blond", "blue", "fair"));
+
 	
 	
 	assertThat(jsonpath.getString("birth_year"),containsString("BBY"));
