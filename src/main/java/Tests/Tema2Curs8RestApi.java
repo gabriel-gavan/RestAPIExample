@@ -23,14 +23,11 @@ public class Tema2Curs8RestApi {
 	System.out.println(resp.asString());
 	JsonPath jsonpath = resp.jsonPath();
 		
-	//verificam daca nava a aparut fie in filmul https://swapi.dev/api/films/2/" sau
-	//https://swapi.dev/api/films/6/" sau https://swapi.dev/api/films/5/”
+	//verificam daca nava a aparut fie in filmul https://swapi.dev/api/films/2/" sau //https://swapi.dev/api/films/6/" sau https://swapi.dev/api/films/5/”
 
 	List<String> movies = jsonpath.getList("films");
 	List<String> films	= new ArrayList<> (movies);
-	assertThat(films, hasItems("https://swapi.dev/api/films/2/", 
-							   "https://swapi.dev/api/films/6/",
-	        				   "https://swapi.dev/api/films/5/"));
+	assertThat(films, either(hasItem("https://swapi.dev/api/films/2/")).or(hasItem("https://swapi.dev/api/films/6/")).or(hasItem("https://swapi.dev/api/films/5/")));
 	        
 	// verificam daca diameter se apropie de valoarea 1000 cu o marja de eroare de max 30
 	
