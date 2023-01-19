@@ -27,4 +27,50 @@ public class DataBuilder {
 		
 		return bodyToDO;
 	}
+	public static JSONObject buildTodos() {
+		
+			JSONObject totoBuilder =  new JSONObject();
+			Faker faker = new Faker();
+		
+			totoBuilder.put("title", faker.lordOfTheRings().character());
+			totoBuilder.put("body", faker.dune().saying() );
+			
+			return totoBuilder;
+	}
+	public static JSONObject buildToken() {
+				
+				JSONObject body =  new JSONObject();
+				
+			
+				body.put("username", "admin");
+				body.put("password", "password123" );
+				
+				return body;
+	}
+	public static JSONObject buildBooking() {
+		
+		/*{
+    "firstname" : "Jim",
+    "lastname" : "Brown",
+    "totalprice" : 111,
+    "depositpaid" : true,
+    "bookingdates" : {
+        "checkin" : "2018-01-01",
+        "checkout" : "2019-01-01"
+    },
+    "additionalneeds" : "Breakfast"
+}'*/
+		JSONObject booking = new JSONObject();
+		booking.put("firstname" , "John");
+		booking.put("lastname" ,"Doe");
+		booking.put("totalprice" , 111);
+		booking.put("depositpaid" , true);
+			JSONObject bookingDates = new JSONObject();
+			bookingDates.put("checkin" , "2023-01-01");
+			bookingDates.put("checkout" , "2023-01-11");
+		booking.put("bookingdates" , bookingDates);
+		booking.put("additionalneeds" , "Breakfast");
+		return booking;
+	}
+		
 }

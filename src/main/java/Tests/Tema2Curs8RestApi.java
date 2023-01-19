@@ -32,8 +32,11 @@ public class Tema2Curs8RestApi {
 	// verificam daca diameter se apropie de valoarea 1000 cu o marja de eroare de max 30
 	
 	
-	String length = jsonpath.getString("length");
-	assertThat(Integer.parseInt(length), both(is(greaterThan(1000))).and(is(lessThan(1030))));
+	String max_atmosphering_speed = jsonpath.getString("max_atmosphering_speed");
+	
+	//assertThat(Integer.parseInt(max_atmosphering_speed), both(is(greaterThan(1000))).and(is(lessThan(1030))));
+	
+	assertThat(Double.parseDouble(max_atmosphering_speed), is(closeTo(1000, 30)));
 	
 	//verificam daca pilots este o colectie goala a clasei String
 	List<String> pilot = jsonpath.getList("pilots");
