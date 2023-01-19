@@ -72,5 +72,15 @@ public class DataBuilder {
 		booking.put("additionalneeds" , "Breakfast");
 		return booking;
 	}
+	public static JSONObject buildToken2() {
 		
+		JSONObject body =  new JSONObject();
+		
+	
+		body.put("user", "admin");
+		body.put("pass", "password123" );
+		
+		return body;
+}
+
 }
